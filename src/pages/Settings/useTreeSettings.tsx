@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IMenuItems } from "../../components/TreeSettings";
 
-interface Element {
+export interface Element {
   old?: IMenuItems;
   act?: IMenuItems;
 }
