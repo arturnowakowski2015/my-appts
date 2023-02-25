@@ -16,9 +16,7 @@ const Rows = ({ data, columns }: IProps) => {
               {row.map((t, j) => {
                 return (
                   <th key={j}>
-                    <div>
-                      {i}....{t as string}
-                    </div>
+                    <div>{t as string}</div>
                   </th>
                 );
               })}

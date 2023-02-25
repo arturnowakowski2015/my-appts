@@ -37,20 +37,24 @@ export default function Table({ data, columns }: IProps) {
   return (
     <>
       {" "}
-      <table>
-        <thead>
-          <tr>
-            <Columns
-              tocompare={selCol}
-              columns={columns}
-              onSort={(id) => onSort(id)}
-            />
-          </tr>
-        </thead>
-        <tbody>
-          <Rows data={currentTableData} columns={selCol} />
-        </tbody>
-      </table>{" "}
+      {currentTableData && currentTableData.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <Columns
+                tocompare={selCol}
+                columns={columns}
+                onSort={(id) => onSort(id)}
+              />
+            </tr>
+          </thead>
+          <tbody>
+            <Rows data={currentTableData} columns={selCol} />
+          </tbody>
+        </table>
+      ) : (
+        <div className="norecords">"no records avaible!!"</div>
+      )}{" "}
       <Pagination
         siblingCount={1}
         currentPage={currentPage}

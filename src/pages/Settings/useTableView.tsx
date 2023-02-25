@@ -42,7 +42,6 @@ const useTable = (idurl: number, actualcategory: string) => {
       ref.current();
     }
   }, [actualcategory, idurl]);
-  alert(data && data["new"].length + ":::new");
   return [data ? data[actualcategory] : [], columns] as const;
 };
 
