@@ -4,6 +4,7 @@ import Settings from "./pages/Settings/Settings";
 import "./App.css";
 
 function App() {
+  alert(9);
   return (
     <>
       <HashRouter>
