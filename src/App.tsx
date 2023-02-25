@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { HashRouter, Route, Link, Routes } from "react-router-dom";
+import Settings from "./pages/Settings/Settings";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <HashRouter>
+        {/* main route component */}
+        <Routes>
+          {/* switch displays only one component that matches */}
+
+          <Route path="settings/*" element={<Settings />} />
+
+          {/* the div below shows when there is no match */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Link to="/">Go To Steps Page</Link>
+                <Link to="/settings">Go To Steps Page</Link>
+              </>
+            }
+          />
+        </Routes>
+      </HashRouter>
+    </>
   );
 }
-
 export default App;
