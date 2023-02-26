@@ -54,7 +54,9 @@ const useTable = (idurl: number, actualcategory: string) => {
       ref.current();
     }
   }, [actualcategory, idurl]);
+ 
   return [data ? data[actualcategory] : [], columns, datalengths] as const;
+ 
 };
 
 export { useTable };

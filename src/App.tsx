@@ -1,9 +1,12 @@
 import React from "react";
+ 
 import { HashRouter, Route, Routes } from "react-router-dom";
+ 
 import Home from "./pages/Settings/Home";
 import "./App.css";
 
 function App() {
+  alert(9);
   return (
     <>
       <HashRouter>
