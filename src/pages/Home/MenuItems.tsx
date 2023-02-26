@@ -1,18 +1,31 @@
 import { IMenuItems } from "../../components/TreeSettings";
+import { DataTable, DataLengths } from "../../components/Interface";
 import "./MenuItems.scss";
 interface IProps {
-  data: IMenuItems[];
+  datalengths: DataLengths;
+  treedata: IMenuItems[];
+  tabledata: DataTable[];
   onClick: (title: string) => void;
 }
-const MenuItems = ({ data, onClick }: IProps) => {
+const MenuItems = ({ treedata, tabledata, onClick, datalengths }: IProps) => {
+  const ret = (str: string) => {
+    alert(str);
+    for (const [key, value] of Object.entries(datalengths)) {
+      if (key === str) return value;
+    }
+  };
   return (
     <>
-      {data.map((t) => {
+      {treedata.map((t) => {
         return (
           <div style={{ marginLeft: t.level * 10 + "px" }} key={t.id}>
             <p className="item" onClick={() => onClick(t.name)}>
               {t.name}
-              <span>{data.length}</span>
+
+              <span>
+                ,,,
+                {ret(t.name)}
+              </span>
             </p>{" "}
           </div>
         );

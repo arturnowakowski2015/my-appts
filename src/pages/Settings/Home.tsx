@@ -25,7 +25,7 @@ const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let { flattenarr, zerotreetoarr } = useConvertTree();
-  const [data, columns] = useTable(1, actcategory);
+  const [data, columns, datalengths] = useTable(1, actcategory);
 
   const preview = () => {
     navigate("/");
@@ -70,9 +70,10 @@ const Home = () => {
 
           <div className="menu">
             <MenuItems
-              data={treedata}
+              datalengths={datalengths}
+              tabledata={data}
+              treedata={treedata}
               onClick={(str) => {
-                alert(location.pathname.split("/")[1]);
                 navigate(str);
                 if (location.pathname) setActcategory(str);
               }}
