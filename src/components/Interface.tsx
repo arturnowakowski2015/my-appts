@@ -24,3 +24,7 @@ export interface Chevron {
   title: string;
   class: string[];
 }
+export interface DataLengths {
+  new?: number;
+  postponed?: number;
+}

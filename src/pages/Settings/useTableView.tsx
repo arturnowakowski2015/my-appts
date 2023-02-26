@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { DataTable } from "../../components/Interface";
-import { Column, Data } from "../../components/Interface";
+import {
+  Column,
+  Data,
+  DataLengths,
+  DataTable,
+} from "../../components/Interface";
 const urls: string[] = [
   "https://jsonplaceholder.typicode.com/posts",
   "https://jsonplaceholder.typicode.com/comments",
@@ -12,6 +16,7 @@ const urls: string[] = [
 const useTable = (idurl: number, actualcategory: string) => {
   const [data, setData] = useState<Data>();
   let columns: Column[] = [];
+  const [datalengths, setDatalengths] = useState<DataLengths>({});
   const loadDatabase = async () => {
     const response = await fetch(urls[idurl]);
     const result = await response.json();
@@ -35,6 +40,13 @@ const useTable = (idurl: number, actualcategory: string) => {
         ]
       : [];
   }, [data]);
+  useEffect(() => {
+    setDatalengths({
+      new: data && data.new.length,
+      postponed: data && data.postponed.length,
+    });
+  }, [data]);
+
   const ref = useRef<Function>(loadDatabase);
 
   useEffect(() => {
@@ -42,7 +54,9 @@ const useTable = (idurl: number, actualcategory: string) => {
       ref.current();
     }
   }, [actualcategory, idurl]);
-  return [data ? data[actualcategory] : [], columns] as const;
+ 
+  return [data ? data[actualcategory] : [], columns, datalengths] as const;
+ 
 };
 
 export { useTable };
