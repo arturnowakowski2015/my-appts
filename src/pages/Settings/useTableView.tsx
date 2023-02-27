@@ -22,7 +22,7 @@ const useTable = (idurl: number, actualcategory: string) => {
     const result = await response.json();
 
     setData({
-      [actualcategory]: result.filter((t: DataTable, i: number) => {
+      new: result.filter((t: DataTable, i: number) => {
         return i < 300 && t;
       }),
       postponed: result.filter((t: DataTable, i: number) => {
@@ -54,9 +54,8 @@ const useTable = (idurl: number, actualcategory: string) => {
       ref.current();
     }
   }, [actualcategory, idurl]);
- 
+
   return [data ? data[actualcategory] : [], columns, datalengths] as const;
- 
 };
 
 export { useTable };
