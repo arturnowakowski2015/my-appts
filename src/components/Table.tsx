@@ -29,7 +29,9 @@ export default function Table({ data, columns }: IProps) {
     else return data && data.slice(firstPageIndex, lastPageIndex);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, columns, onSort]);
+
   alert(90);
+
   //const data0 = data && Object.keys(data[0])
   ref.current = onSort;
   useEffect(() => {
