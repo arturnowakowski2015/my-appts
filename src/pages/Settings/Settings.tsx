@@ -4,9 +4,7 @@ import { DataTable, Column } from "../../components/Interface";
 import { Element } from "./useTreeSettings";
 import PossibleLabel from "../../components/PossibleLabel";
 import Table from "../../components/Table";
-
 import CheckColumn from "../../components/CheckColumn";
-
 interface IProps {
   el: Element;
   idroot: string | null;
@@ -47,7 +45,6 @@ const Settings = ({
           <>
             <div onClick={preview}>preview</div>
             <div onClick={() => navigate("treesettings")}>tree settings</div>
-
             {columns.map((t, i) => {
               return (
                 <CheckColumn
@@ -58,7 +55,6 @@ const Settings = ({
                 />
               );
             })}
-
             <Table data={data} columns={columns} />
           </>
         }
