@@ -38,7 +38,6 @@ const Settings = ({
   handleDragStart,
   chooseColumn,
 }: IProps) => {
-  const [data, columns, datalengths] = useTable(1, "new");
   const navigate = useNavigate();
   return (
     <Routes>
