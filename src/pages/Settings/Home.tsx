@@ -26,7 +26,7 @@ const Home = () => {
   const location = useLocation();
   let { flattenarr, zerotreetoarr } = useConvertTree();
 
-  const [data, columns, datalengths] = useTable(1, actcategory);
+  const [data, columns, datalengths, chooseColumn] = useTable(1, actcategory);
 
   const preview = () => {
     navigate("/");
@@ -89,6 +89,9 @@ const Home = () => {
           element={
             <div>
               <Settings
+                data={data}
+                columns={columns}
+                chooseColumn={chooseColumn}
                 treedata={treedata}
                 el={el}
                 idroot={idroot}

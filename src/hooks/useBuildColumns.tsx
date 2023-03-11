@@ -1,6 +1,5 @@
- 
 import { useState, useEffect, useRef } from "react";
- 
+
 import { Chevron } from "../components/Interface";
 interface ColumnsHeader {
   title: string;
@@ -11,9 +10,8 @@ export interface Column {
 }
 
 const useBuildColumns = () => {
- 
   const ref = useRef<Function>();
- 
+
   const [filteredColumns, setFilteredColumns] = useState<Column[]>();
   const [chevron, setChevron] = useState<Chevron>({
     atall: true,
@@ -42,11 +40,11 @@ const useBuildColumns = () => {
       title: "",
       class: [...chevron.class],
     });
-  }; 
+  };
   ref.current = functionbuildcol;
   useEffect(() => {
     if (ref.current) ref.current();
-  }, [filteredColumns]); 
+  }, [filteredColumns]);
   return [
     filteredColumns,
     functionbuildcol,
