@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Column,
   Data,
@@ -14,7 +16,9 @@ const urls: string[] = [
 ];
 
 const useTable = (idurl: number, actualcategory: string) => {
+  const navigate = useNavigate();
   const [data, setData] = useState<Data>();
+  const [whichColumns, setWhichColumns] = useState<Column[]>([]);
   let columns: Column[] = [];
   const [datalengths, setDatalengths] = useState<DataLengths>({});
   const loadDatabase = async () => {
@@ -54,8 +58,22 @@ const useTable = (idurl: number, actualcategory: string) => {
       ref.current();
     }
   }, [actualcategory, idurl]);
+  const chooseColumn = (title: string) => {
+    columns.map((t) => {
+      if (t.col.title === title) t.col.disp = !t.col.disp;
+      return t;
+    });
+    setWhichColumns(columns);
+    navigate("/settings/tablesettings");
+    return whichColumns;
+  };
 
-  return [data ? data[actualcategory] : [], columns, datalengths] as const;
+  return [
+    data ? data[actualcategory] : [],
+    whichColumns.length === 0 ? columns : whichColumns,
+    datalengths,
+    chooseColumn,
+  ] as const;
 };
 
 export { useTable };

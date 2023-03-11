@@ -8,13 +8,13 @@ import Rows from "./Rows";
 let PageSize = 10;
 interface IProps {
   data?: DataTable[];
-  columns?: Column[];
+  columns: Column[];
 }
 export default function Table({ data, columns }: IProps) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { sortedData, sortData } = useSort();
-  const [selCol, setSelCol] = useState<Column[]>();
+  const [selCol, setSelCol] = useState<Column[]>([]);
   const onSort = (columnId: number) => {
     if (data && data.length > 0) sortData(columnId, data);
 

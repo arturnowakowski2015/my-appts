@@ -1,13 +1,18 @@
 import { Route, useNavigate, Routes } from "react-router-dom";
 import TreeSettings, { IMenuItems } from "../../components/TreeSettings";
+import { DataTable, Column } from "../../components/Interface";
 import { Element } from "./useTreeSettings";
 import PossibleLabel from "../../components/PossibleLabel";
 import Table from "../../components/Table";
-import { useTable } from "./useTableView";
+ 
+import CheckColumn from "../../components/CheckColumn";
+ 
 interface IProps {
   el: Element;
   idroot: string | null;
   treedata: IMenuItems[];
+  data: DataTable[];
+  columns: Column[];
   preview: () => void;
   enableDropping: (
     event: React.DragEvent<HTMLDivElement>,
@@ -18,20 +23,23 @@ interface IProps {
     event: React.DragEvent<HTMLDivElement>,
     name: string
   ) => void;
+  chooseColumn: (str: string) => void;
 }
 
 const Settings = ({
   el,
   idroot,
   treedata,
+  data,
+  columns,
   preview,
   enableDropping,
   handleDrop,
   handleDragStart,
+  chooseColumn,
 }: IProps) => {
   const [data, columns, datalengths] = useTable(1, "new");
   const navigate = useNavigate();
-
   return (
     <Routes>
       <Route
@@ -40,7 +48,18 @@ const Settings = ({
           <>
             <div onClick={preview}>preview</div>
             <div onClick={() => navigate("treesettings")}>tree settings</div>
-
+ 
+            {columns.map((t, i) => {
+              return (
+                <CheckColumn
+                  key={i}
+                  title={t.col.title}
+                  chooseColumn={chooseColumn}
+                  display={t.col.disp}
+                />
+              );
+            })}
+ 
             <Table data={data} columns={columns} />
           </>
         }

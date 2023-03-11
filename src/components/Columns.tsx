@@ -18,7 +18,6 @@ const Columns = ({ tocompare, columns, onSort }: IProps) => {
     currentfunction,
   ] = useBuildColumns();
   const f = (tocompare: Column[], columns: Column[]) => {
- 
     currentfunction(tocompare, columns);
     functionbuildcol();
   };
@@ -29,6 +28,7 @@ const Columns = ({ tocompare, columns, onSort }: IProps) => {
 
   return (
     <>
+      {JSON.stringify(tocompare) + "\n" + JSON.stringify(columns)}
       {filteredColumns &&
         filteredColumns.map((column, i) => {
           return (
