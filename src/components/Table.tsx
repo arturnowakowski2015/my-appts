@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSort } from "../hooks/useSort";
 import { DataTable, Column } from "./Interface";
 import Pagination from "./Pagination";
@@ -16,27 +16,19 @@ export default function Table({ data, columns }: IProps) {
   const { sortedData, sortData } = useSort();
   const [selCol, setSelCol] = useState<Column[]>();
   const onSort = (columnId: number) => {
-    sortData(columnId, data);
+    if (data && data.length > 0) sortData(columnId, data);
 
     return sortedData;
   };
-  const ref = useRef<Function>();
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    if (sortedData && sortedData.length > 0)
+    if (sortedData && sortedData.length > 0 && data && data.length <= 0)
       return sortedData.slice(firstPageIndex, lastPageIndex);
     else return data && data.slice(firstPageIndex, lastPageIndex);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, columns, onSort]);
+  }, [onSort]);
 
-  alert(90);
-
-  //const data0 = data && Object.keys(data[0])
-  ref.current = onSort;
-  useEffect(() => {
-    if (ref.current) ref.current(1);
-  }, [data]);
   useEffect(() => {
     setSelCol(columns);
   }, [columns]);
