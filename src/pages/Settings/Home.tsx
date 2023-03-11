@@ -25,8 +25,9 @@ const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let { flattenarr, zerotreetoarr } = useConvertTree();
-
+ 
   const [data, columns, datalengths, chooseColumn] = useTable(1, actcategory);
+ 
 
   const preview = () => {
     navigate("/");
