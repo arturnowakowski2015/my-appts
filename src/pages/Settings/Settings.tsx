@@ -2,6 +2,8 @@ import { Route, useNavigate, Routes } from "react-router-dom";
 import TreeSettings, { IMenuItems } from "../../components/TreeSettings";
 import { Element } from "./useTreeSettings";
 import PossibleLabel from "../../components/PossibleLabel";
+import Table from "../../components/Table";
+import { useTable } from "./useTableView";
 interface IProps {
   el: Element;
   idroot: string | null;
@@ -27,6 +29,7 @@ const Settings = ({
   handleDrop,
   handleDragStart,
 }: IProps) => {
+  const [data, columns, datalengths] = useTable(1, "new");
   const navigate = useNavigate();
 
   return (
@@ -37,6 +40,8 @@ const Settings = ({
           <>
             <div onClick={preview}>preview</div>
             <div onClick={() => navigate("treesettings")}>tree settings</div>
+
+            <Table data={data} columns={columns} />
           </>
         }
       />

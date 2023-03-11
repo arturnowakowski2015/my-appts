@@ -47,8 +47,8 @@ const useTable = (idurl: number, actualcategory: string) => {
     });
   }, [data]);
 
-  const ref = useRef<Function>(loadDatabase);
-
+  const ref = useRef<Function>();
+  ref.current = loadDatabase;
   useEffect(() => {
     if (ref.current) {
       ref.current();
