@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useBuildRows } from "../hooks/useBuildRows";
 import { Column, DataTable } from "./Interface";
 interface IProps {
@@ -5,7 +6,13 @@ interface IProps {
   columns?: Column[];
 }
 const Rows = ({ data, columns }: IProps) => {
-  const [rows] = useBuildRows(data, columns);
+  const [rows, build] = useBuildRows();
+  const ref = useRef<Function>();
+  ref.current = build;
+  useEffect(() => {
+    if (ref.current) ref.current(data, columns);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   return (
     <>

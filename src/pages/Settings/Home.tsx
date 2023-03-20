@@ -25,10 +25,12 @@ const Home = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let { flattenarr, zerotreetoarr } = useConvertTree();
- 
-  const [data, columns, datalengths, chooseColumn] = useTable(1, actcategory);
- 
 
+  const [data, columns, datalengths, loadDatabase] = useTable(actcategory);
+  const [pageSize, setPageSize] = useState(1);
+  const changeSize = (i: number) => {
+    setPageSize(i);
+  };
   const preview = () => {
     navigate("/");
     setMenuItems(!menuItems);
@@ -48,6 +50,7 @@ const Home = () => {
     zerotreetoarr(tree.children as [], [0]);
     flattenarr.sort((a, b) => a.id - b.id);
     setTreedata(flattenarr);
+    loadDatabase(0);
   };
   initialstep.current = initialstepfunktion;
   useEffect(() => {
@@ -81,7 +84,7 @@ const Home = () => {
               }}
             />
           </div>
-          <Table data={data} columns={columns} />
+          <Table data={data} columns={columns} pageSize={pageSize} />
         </>
       )}
       <Routes>
@@ -90,9 +93,10 @@ const Home = () => {
           element={
             <div>
               <Settings
+                pageSize={pageSize}
                 data={data}
                 columns={columns}
-                chooseColumn={chooseColumn}
+                loadDatabase={loadDatabase}
                 treedata={treedata}
                 el={el}
                 idroot={idroot}
@@ -100,6 +104,7 @@ const Home = () => {
                 enableDropping={enableDropping}
                 handleDrop={handleDrop}
                 preview={() => preview()}
+                changeSize={(e) => changeSize(parseInt(e.currentTarget.value))}
               />
             </div>
           }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 import { Chevron } from "../components/Interface";
 interface ColumnsHeader {
@@ -10,8 +10,6 @@ export interface Column {
 }
 
 const useBuildColumns = () => {
-  const ref = useRef<Function>();
-
   const [filteredColumns, setFilteredColumns] = useState<Column[]>();
   const [chevron, setChevron] = useState<Chevron>({
     atall: true,
@@ -19,7 +17,7 @@ const useBuildColumns = () => {
     title: "",
     class: [],
   });
-  const currentfunction = (tocompare?: Column[], columns?: Column[]) => {
+  const filterColumns = (tocompare?: Column[], columns?: Column[]) => {
     let obj: Column[] | undefined =
       tocompare &&
       tocompare.filter((k: Column, ii: number) => {
@@ -27,6 +25,8 @@ const useBuildColumns = () => {
       });
 
     setFilteredColumns(obj);
+
+    functionbuildcol();
   };
   const functionbuildcol = () => {
     filteredColumns &&
@@ -40,17 +40,10 @@ const useBuildColumns = () => {
       title: "",
       class: [...chevron.class],
     });
+    alert(9999);
+    return filteredColumns;
   };
-  ref.current = functionbuildcol;
-  useEffect(() => {
-    if (ref.current) ref.current();
-  }, [filteredColumns]);
-  return [
-    filteredColumns,
-    functionbuildcol,
-    chevron,
-    setChevron,
-    currentfunction,
-  ] as const;
+
+  return [filteredColumns, filterColumns] as const;
 };
 export { useBuildColumns };

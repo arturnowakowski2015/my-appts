@@ -14,16 +14,6 @@ function App() {
           {/* switch displays only one component that matches */}
 
           <Route path="*" element={<Home />} />
-
-          {/* the div below shows when there is no match */}
-          <Route
-            path="/"
-            element={
-              <>
-                <Home />
-              </>
-            }
-          />
         </Routes>
       </HashRouter>
     </>

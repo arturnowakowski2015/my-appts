@@ -1,37 +1,36 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useSort } from "../hooks/useSort";
 import { DataTable, Column } from "./Interface";
+import { useBuildChevron } from "../hooks/useBuildChevron";
+
+import ColumnHeaderButton from "./ColumnHeaderButton";
 import Pagination from "./Pagination";
-import Columns from "./Columns";
 import Rows from "./Rows";
 //import Pagination from "./Pagination";
-let PageSize = 10;
 interface IProps {
   data?: DataTable[];
   columns: Column[];
+  pageSize: number;
 }
-export default function Table({ data, columns }: IProps) {
+export default function Table({ data, columns, pageSize }: IProps) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [buildchevron, chevron, setChevron] = useBuildChevron();
 
   const { sortedData, sortData } = useSort();
-  const [selCol, setSelCol] = useState<Column[]>([]);
   const onSort = (columnId: number) => {
     if (data && data.length > 0) sortData(columnId, data);
 
     return sortedData;
   };
   const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
+    const firstPageIndex = (currentPage - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
     if (sortedData && sortedData.length > 0 && data && data.length <= 0)
       return sortedData.slice(firstPageIndex, lastPageIndex);
     else return data && data.slice(firstPageIndex, lastPageIndex);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onSort]);
 
-  useEffect(() => {
-    setSelCol(columns);
-  }, [columns]);
   return (
     <>
       {" "}
@@ -39,15 +38,49 @@ export default function Table({ data, columns }: IProps) {
         <table>
           <thead>
             <tr>
-              <Columns
-                tocompare={selCol}
-                columns={columns}
-                onSort={(id) => onSort(id)}
-              />
+              {columns &&
+                columns.map((column, i) => {
+                  return (
+                    <th key={i}>
+                      <ColumnHeaderButton
+                        chevron={chevron}
+                        className={chevron.class && chevron.class[i]}
+                        title={column.col.title}
+                        onClick={() => {
+                          chevron.class[i] = "red";
+                          setChevron({
+                            atall: true,
+                            down: !chevron.down,
+                            title: column.col.title,
+                            class: chevron.class,
+                          });
+                          onSort(i);
+                        }}
+                        onMouseOver={() => {
+                          buildchevron(columns);
+                          chevron.class[i] = "red";
+                          setChevron({
+                            ...chevron,
+                            title: column.col.title,
+                            class: chevron.class,
+                          });
+                        }}
+                        onMouseOut={() => {
+                          chevron.class[i] = "gray";
+                          setChevron({
+                            ...chevron,
+                            class: chevron.class,
+                            down: false,
+                          });
+                        }}
+                      />
+                    </th>
+                  );
+                })}
             </tr>
           </thead>
           <tbody>
-            <Rows data={currentTableData} columns={selCol} />
+            <Rows data={currentTableData} columns={columns} />
           </tbody>
         </table>
       ) : (
@@ -57,7 +90,7 @@ export default function Table({ data, columns }: IProps) {
         siblingCount={1}
         currentPage={currentPage}
         totalCount={data && data.length}
-        pageSize={PageSize}
+        pageSize={pageSize}
         onPageChange={(page) => setCurrentPage(page)}
       />
     </>

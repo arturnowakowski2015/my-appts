@@ -1,13 +1,13 @@
+import { useState } from "react";
 import { Route, useNavigate, Routes } from "react-router-dom";
 import TreeSettings, { IMenuItems } from "../../components/TreeSettings";
 import { DataTable, Column } from "../../components/Interface";
 import { Element } from "./useTreeSettings";
 import PossibleLabel from "../../components/PossibleLabel";
 import Table from "../../components/Table";
- 
-import CheckColumn from "../../components/CheckColumn";
- 
+
 interface IProps {
+  pageSize: number;
   el: Element;
   idroot: string | null;
   treedata: IMenuItems[];
@@ -23,10 +23,12 @@ interface IProps {
     event: React.DragEvent<HTMLDivElement>,
     name: string
   ) => void;
-  chooseColumn: (str: string) => void;
+  loadDatabase: (i: number) => void;
+  changeSize(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 const Settings = ({
+  pageSize,
   el,
   idroot,
   treedata,
@@ -36,9 +38,16 @@ const Settings = ({
   enableDropping,
   handleDrop,
   handleDragStart,
-  chooseColumn,
+  loadDatabase,
+  changeSize,
 }: IProps) => {
   const navigate = useNavigate();
+
+  // This function is triggered when the select changes
+  const change = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    loadDatabase(parseInt(value));
+  };
   return (
     <Routes>
       <Route
@@ -47,19 +56,20 @@ const Settings = ({
           <>
             <div onClick={preview}>preview</div>
             <div onClick={() => navigate("treesettings")}>tree settings</div>
- 
-            {columns.map((t, i) => {
-              return (
-                <CheckColumn
-                  key={i}
-                  title={t.col.title}
-                  chooseColumn={chooseColumn}
-                  display={t.col.disp}
-                />
-              );
-            })}
- 
-            <Table data={data} columns={columns} />
+            <label>change database</label>
+            <select onChange={change}>
+              <option value="0">comments</option>
+              <option value="1">photos</option>
+            </select>{" "}
+            <input
+              type="range"
+              name="quantity"
+              min="1"
+              max={data && data.length}
+              value={pageSize}
+              onChange={changeSize}
+            />
+            <Table data={data} columns={columns} pageSize={pageSize} />
           </>
         }
       />
