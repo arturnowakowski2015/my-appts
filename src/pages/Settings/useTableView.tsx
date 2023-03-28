@@ -15,6 +15,13 @@ const useTable = (actualcategory: string) => {
   const [data, setData] = useState<Data>();
   let columns: Column[] = [];
   const [datalengths, setDatalengths] = useState<DataLengths>({});
+  const filterData = (str: string): DataTable[] | undefined => {
+    if (data) {
+      return data[actualcategory].filter((t) => {
+        return typeof t.name === "string" && t.name.includes(str);
+      });
+    }
+  };
   const loadDatabase = async (idurl: number) => {
     const response = await fetch(urls[idurl]);
     const result = await response.json();
@@ -50,6 +57,7 @@ const useTable = (actualcategory: string) => {
     columns,
     datalengths,
     loadDatabase,
+    filterData,
   ] as const;
 };
 

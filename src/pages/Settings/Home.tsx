@@ -3,7 +3,6 @@ import { useTreeSettings } from "./useTreeSettings";
 import { useEffect, useRef, useState } from "react";
 import { Route, useNavigate, Routes, useLocation } from "react-router-dom";
 import { tree } from "../../data/dummy";
-import "./TreeSettings.scss";
 
 import Settings from "./Settings";
 import MenuItems from "../Home/MenuItems";
@@ -22,12 +21,14 @@ const Home = () => {
   let initialstep = useRef<Function>();
   const [menuItems, setMenuItems] = useState(true);
   const [actcategory, setActcategory] = useState("new");
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   let { flattenarr, zerotreetoarr } = useConvertTree();
 
-  const [data, columns, datalengths, loadDatabase] = useTable(actcategory);
-  const [pageSize, setPageSize] = useState(1);
+  const [data, columns, datalengths, loadDatabase, filterData] =
+    useTable(actcategory);
+  const [pageSize, setPageSize] = useState(5);
   const changeSize = (i: number) => {
     setPageSize(i);
   };
@@ -84,7 +85,21 @@ const Home = () => {
               }}
             />
           </div>
-          <Table data={data} columns={columns} pageSize={pageSize} />
+          <div className="searchBox">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.currentTarget.value);
+              }}
+            />
+            <label>search name column</label>
+          </div>
+          <Table
+            data={filterData(query)}
+            columns={columns}
+            pageSize={pageSize}
+          />
         </>
       )}
       <Routes>

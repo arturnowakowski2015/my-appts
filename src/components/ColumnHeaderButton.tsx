@@ -3,7 +3,7 @@ import { Chevron } from "./Interface";
 interface IProps {
   className: string;
   title: string;
-  chevron: Chevron;
+  chevron: Chevron | undefined;
   onMouseOver: () => void;
   onMouseOut: () => void;
   onClick: () => void;

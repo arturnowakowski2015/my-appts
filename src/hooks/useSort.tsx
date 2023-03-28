@@ -10,7 +10,6 @@ const useSort = () => {
       r = Object.keys(data[0]).filter((t) => {
         return data[0][t];
       });
-
     sortDirection
       ? data &&
         data.sort(function (a: any, b: any) {

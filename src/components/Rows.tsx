@@ -19,15 +19,18 @@ const Rows = ({ data, columns }: IProps) => {
       {rows &&
         rows.map((row, i) => {
           return (
-            <tr key={i}>
-              {row.map((t, j) => {
-                return (
-                  <th key={j}>
-                    <div>{t as string}</div>
-                  </th>
-                );
-              })}
-            </tr>
+            <>
+              <tr key={i}>
+                {" "}
+                {row.map((t, j) => {
+                  return (
+                    <th key={j}>
+                      <div>{t as string}</div>
+                    </th>
+                  );
+                })}
+              </tr>
+            </>
           );
         })}
     </>

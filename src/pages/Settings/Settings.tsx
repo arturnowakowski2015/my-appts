@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Route, useNavigate, Routes } from "react-router-dom";
 import TreeSettings, { IMenuItems } from "../../components/TreeSettings";
 import { DataTable, Column } from "../../components/Interface";
 import { Element } from "./useTreeSettings";
 import PossibleLabel from "../../components/PossibleLabel";
 import Table from "../../components/Table";
-
+import "./TreeSettings.scss";
 interface IProps {
   pageSize: number;
   el: Element;
