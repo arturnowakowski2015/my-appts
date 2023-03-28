@@ -16,7 +16,9 @@ const useTable = (actualcategory: string) => {
   let columns: Column[] = [];
   const [datalengths, setDatalengths] = useState<DataLengths>({});
   const filterData = (str: string): DataTable[] | undefined => {
+ 
     if (data && (actualcategory === "new" || actualcategory === "postponed")) {
+ 
       return data[actualcategory].filter((t) => {
         return typeof t.name === "string" && t.name.includes(str);
       });
