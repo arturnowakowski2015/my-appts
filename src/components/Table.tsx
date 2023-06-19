@@ -14,7 +14,7 @@ interface IProps {
 }
 export default function Table({ data, columns, pageSize }: IProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [buildchevron, chevron, setChevron] = useBuildChevron();
+  const [buildchevron, chevron, setChevron] = useBuildChevron(columns);
 
   const { sortedData, sortData } = useSort();
   const onSort = (columnId: number) => {
@@ -30,7 +30,6 @@ export default function Table({ data, columns, pageSize }: IProps) {
     else return data && data.slice(firstPageIndex, lastPageIndex);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onSort]);
-
   return (
     <>
       {" "}

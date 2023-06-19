@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Chevron } from "../components/Interface";
 interface ColumnsHeader {
@@ -9,14 +9,24 @@ export interface Column {
   col: ColumnsHeader;
 }
 
-const useBuildChevron = () => {
+const useBuildChevron = (columns: Column[]) => {
+  let ch: string[] = [];
+
   const [chevron, setChevron] = useState<Chevron>({
     atall: true,
     down: true,
     title: "",
     class: [],
   });
-
+  useEffect(() => {
+    for (let i = 0; i < columns.length; i++) ch.unshift("gray");
+    setChevron({
+      atall: true,
+      down: true,
+      title: "",
+      class: [...ch],
+    });
+  }, [columns]);
   const buildchevron = (fc: Column[]) => {
     fc &&
       fc.map((t, i) => {
@@ -30,7 +40,6 @@ const useBuildChevron = () => {
       class: [...chevron.class],
     });
   };
-
   return [buildchevron, chevron, setChevron] as const;
 };
 export { useBuildChevron };

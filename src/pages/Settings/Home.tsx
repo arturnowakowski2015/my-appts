@@ -6,9 +6,11 @@ import { tree } from "../../data/dummy";
 
 import Settings from "./Settings";
 import MenuItems from "../Home/MenuItems";
-
+import SearchBox from "../../components/SearchBox";
 import Table from "../../components/Table";
+import Nav from "../Nav";
 import { useTable } from "./useTableView";
+import "../../scss/home.scss";
 export interface IMenuItems {
   name: string;
   level: number;
@@ -57,49 +59,52 @@ const Home = () => {
   useEffect(() => {
     initialstep.current && initialstep.current();
   }, []);
+  const onChange = (str: string) => {
+    setQuery(str);
+  };
   return (
     <>
+      <Nav
+        one={(str) => {
+          if (str === "settings") setMenuItems(false);
+          if (str === "search") setMenuItems(true);
+        }}
+      />
       {menuItems && (
         <>
-          {location.pathname.split("/")[1] ? (
-            <div
-              onClick={() => {
-                setMenuItems(false);
-                navigate("/settings/treesettings");
-              }}
-            >
-              settings
+          <div className="right">
+            <div className="menu">
+              <MenuItems
+                datalengths={datalengths}
+                tabledata={data}
+                treedata={treedata}
+                onClick={(str) => {
+                  navigate(str);
+                  if (location.pathname) setActcategory(str);
+                }}
+              />
             </div>
-          ) : (
-            <div style={{ height: "22px" }}></div>
-          )}
+          </div>
 
-          <div className="menu">
-            <MenuItems
-              datalengths={datalengths}
-              tabledata={data}
-              treedata={treedata}
-              onClick={(str) => {
-                navigate(str);
-                if (location.pathname) setActcategory(str);
-              }}
-            />
+          <div className="left">
+            <Routes>
+              <Route
+                path="search"
+                element={
+                  <div className="searchbox">
+                    <SearchBox onChange={onChange} />
+                  </div>
+                }
+              />
+            </Routes>
+            <div className="table">
+              <Table
+                data={filterData(query)}
+                columns={columns}
+                pageSize={pageSize}
+              />
+            </div>
           </div>
-          <div className="searchBox">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => {
-                setQuery(e.currentTarget.value);
-              }}
-            />
-            <label>search name column</label>
-          </div>
-          <Table
-            data={filterData(query)}
-            columns={columns}
-            pageSize={pageSize}
-          />
         </>
       )}
       <Routes>

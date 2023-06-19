@@ -23,7 +23,7 @@ export default function ColumnHeaderButton({
   };
   return (
     <div
-      className={className}
+      className={className + " columnheader"}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
       onClick={onClick}
