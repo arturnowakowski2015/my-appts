@@ -23,8 +23,8 @@ const Rows = ({ onChange }: IProps) => {
           }}
         />
         <div className="options">
-          {options.map((t) => {
-            return <div>{t}</div>;
+          {options.map((t, j) => {
+            return <div key={j}>{t}</div>;
           })}
         </div>
       </div>

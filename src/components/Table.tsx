@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useSort } from "../hooks/useSort";
-import { DataTable, Column } from "./Interface";
+import { DataTable, Column, Record } from "./Interface";
 import { useBuildChevron } from "../hooks/useBuildChevron";
 
 import ColumnHeaderButton from "./ColumnHeaderButton";
@@ -11,8 +11,14 @@ interface IProps {
   data?: DataTable[];
   columns: Column[];
   pageSize: number;
+  selectRecord: (rec: Record[]) => void;
 }
-export default function Table({ data, columns, pageSize }: IProps) {
+export default function Table({
+  data,
+  columns,
+  pageSize,
+  selectRecord,
+}: IProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [buildchevron, chevron, setChevron] = useBuildChevron(columns);
 
@@ -79,7 +85,11 @@ export default function Table({ data, columns, pageSize }: IProps) {
             </tr>
           </thead>
           <tbody>
-            <Rows data={currentTableData} columns={columns} />
+            <Rows
+              selectRecord={selectRecord}
+              data={currentTableData}
+              columns={columns}
+            />
           </tbody>
         </table>
       ) : (

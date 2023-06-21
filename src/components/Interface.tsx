@@ -2,10 +2,15 @@ export interface treeItems {
   name: string;
   children: treeItems[];
 }
+export interface categoryurl {
+  str: string;
+}
 export interface DataTable {
   [id: string | number]: string | number;
 }
-
+export interface Record {
+  rec: Array<string | number | Boolean | undefined>;
+}
 export interface Data {
   [category: string]: DataTable[];
 }

@@ -18,7 +18,6 @@ const useBuildColumns = () => {
     class: [],
   });
   const filterColumns = (tocompare?: Column[], columns?: Column[]) => {
-    alert(99);
     let obj: Column[] | undefined =
       tocompare &&
       tocompare.filter((k: Column, ii: number) => {

@@ -3,6 +3,8 @@ import TreeSettings, { IMenuItems } from "../../components/TreeSettings";
 import { DataTable, Column } from "../../components/Interface";
 import { Element } from "./useTreeSettings";
 import PossibleLabel from "../../components/PossibleLabel";
+import { useTable } from "../../hooks/useTableView";
+
 import Table from "../../components/Table";
 import "./TreeSettings.scss";
 interface IProps {
@@ -41,7 +43,7 @@ const Settings = ({
   changeSize,
 }: IProps) => {
   const navigate = useNavigate();
-
+  const [selectRecord] = useTable("");
   // This function is triggered when the select changes
   const change = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -68,7 +70,12 @@ const Settings = ({
               value={pageSize}
               onChange={changeSize}
             />
-            <Table data={data} columns={columns} pageSize={pageSize} />
+            <Table
+              selectRecord={(rec) => selectRecord}
+              data={data}
+              columns={columns}
+              pageSize={pageSize}
+            />
           </>
         }
       />
