@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { DataTable, Column } from "../components/Interface";
+import { DataTable, Column, Record } from "../components/Interface";
 
 const useBuildRows = () => {
-  const [rows, setRows] = useState<(string | number | Boolean | undefined)[][]>(
-    [[]]
-  );
-  let temprows: (string | number | Boolean | undefined)[] = [];
-  let temp: (string | number | Boolean | undefined)[][] = [[]];
+  const [rows, setRows] = useState<Array<Record[]>>([]);
+  let temprows: Array<Record> = [];
+  let temp: Array<Array<Record>> = [[]];
   let ii = 0;
 
   const build = (data?: DataTable[], columns?: Column[]) => {
@@ -18,7 +16,7 @@ const useBuildRows = () => {
             data1 !== undefined && typeof data1[k] !== "object" && data1[k]
           );
         }),
-      ];
+      ] as Record[];
     };
 
     data && data.map(buildRows);

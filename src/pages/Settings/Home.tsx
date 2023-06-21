@@ -8,8 +8,10 @@ import Settings from "./Settings";
 import MenuItems from "../Home/MenuItems";
 import SearchBox from "../../components/SearchBox";
 import Table from "../../components/Table";
+import Rec from "../../components/Rec";
 import Nav from "../Nav";
-import { useTable } from "./useTableView";
+import { useTable } from "../../hooks/useTableView";
+import { DataTable } from "../../components/Interface";
 import "../../scss/home.scss";
 export interface IMenuItems {
   name: string;
@@ -28,8 +30,19 @@ const Home = () => {
   const location = useLocation();
   let { flattenarr, zerotreetoarr } = useConvertTree();
 
-  const [data, columns, datalengths, loadDatabase, filterData] =
-    useTable(actcategory);
+  const [
+    data,
+    columns,
+    datalengths,
+    selectedRecord,
+    categoryurl,
+    tableflag,
+    loadDatabase,
+    filterData,
+    selectRecord,
+    update,
+    setTableflag,
+  ] = useTable(actcategory);
   const [pageSize, setPageSize] = useState(5);
   const changeSize = (i: number) => {
     setPageSize(i);
@@ -96,14 +109,36 @@ const Home = () => {
                   </div>
                 }
               />
-            </Routes>
-            <div className="table">
-              <Table
-                data={filterData(query)}
-                columns={columns}
-                pageSize={pageSize}
+              <Route
+                path="record"
+                element={
+                  <div className="record">
+                    <Rec
+                      update={(index, record) => {
+                        update(index, record as DataTable);
+                      }}
+                      columns={columns}
+                      record={selectedRecord}
+                      categoryurl={categoryurl}
+                    />
+                  </div>
+                }
               />
-            </div>
+            </Routes>
+
+            {tableflag && (
+              <div className="table">
+                <Table
+                  selectRecord={(rec) => {
+                    setTableflag(0);
+                    selectRecord(rec);
+                  }}
+                  data={filterData(query)}
+                  columns={columns}
+                  pageSize={pageSize}
+                />
+              </div>
+            )}
           </div>
         </>
       )}
