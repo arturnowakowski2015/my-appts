@@ -6,7 +6,7 @@ import PossibleLabel from "../components/PossibleLabel";
 import { useTable } from "../hooks/useTableView";
 
 import Table from "../components/Table";
-import "./TreeSettings.scss";
+import "../scss/TreeSettings.scss";
 interface IProps {
   pageSize: number;
   el: Element;

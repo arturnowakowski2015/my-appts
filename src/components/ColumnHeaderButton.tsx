@@ -1,4 +1,4 @@
-import "../scss/button.scss";
+import "../scss/Table.scss";
 import { Chevron } from "./Interface";
 interface IProps {
   className: string;
@@ -22,19 +22,20 @@ export default function ColumnHeaderButton({
     );
   };
   return (
-    <div
-      className={className + " columnheader"}
-      onMouseOver={onMouseOver}
-      onMouseOut={onMouseOut}
-      onClick={onClick}
-    >
-      {chevron !== undefined &&
-        (checkChevronConditions(chevron, title) ? (
-          <i className="fa fa-chevron-up"></i>
-        ) : (
-          <i className="fa fa-chevron-down"></i>
-        ))}
-      {title}
+    <div className={className + " columns"}>
+      {" "}
+      {chevron !== undefined && (
+        <div
+          className={
+            checkChevronConditions(chevron, title) ? "rotate" : "withoutrotate"
+          }
+        >
+          ^
+        </div>
+      )}
+      <div onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick}>
+        {title}
+      </div>
     </div>
   );
 }

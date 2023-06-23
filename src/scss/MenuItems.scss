@@ -1,19 +1,33 @@
+@use "set";
 .item {
   background-color: antiquewhite;
   width: 100%;
   transition: background-color 0.5s;
 }
+.minus,
+.plus {
+  cursor: pointer;
+}
 span {
+  cursor: pointer;
   height: 20px;
   text-align: right;
   padding-left: 50px;
+} // Generate Button Modifiers
+
+@each $b in set.$colors {
+  $value: nth($b, 1);
+  .node {
+    @each $v in $value {
+      .selected-#{$v} {
+        background-color: #{$v};
+      }
+    }
+  }
 }
-.selected {
-  background-color: blue;
-  width: 100%;
-  transition: background-color 0.5s;
-}
+
 .over {
+  cursor: pointer;
   background-color: rgb(30, 222, 43);
   width: 100%;
   transition: background-color 0.5s;

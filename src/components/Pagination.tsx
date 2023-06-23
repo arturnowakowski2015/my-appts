@@ -63,7 +63,7 @@ const Pagination = ({
               }
               onClick={() => onPageChange(pageNumber as number)}
             >
-              {pageNumber}
+              {pageNumber}{" "}
             </li>
           );
         })}

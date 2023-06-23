@@ -106,50 +106,32 @@ const Home = () => {
           if (str === "search") setMenuItems(true);
         }}
       />
-      {menuItems && (
-        <div className="right">
-          <div className="menu">
-            <MenuItems
-              overItem={overItem}
-              onmouseout={(str) => onmouseout(str)}
-              onmouseover={(str) => onmouseover(str)}
-              selected={actcategory}
-              datalengths={datalengths}
-              tabledata={data}
-              treedata={treedata}
-              onClick={(str) => {
-                changeCategory(str);
-              }}
-            />{" "}
-          </div>
-        </div>
-      )}
-      <Routes>
-        {/* switch displays only one component that matches */}
-
-        <Route
-          path="/:item"
-          element={
-            <div className="table">
-              <Table
-                selectRecord={(rec) => {
-                  setTableflag(0);
-                  selectRecord(rec);
+      <div className="container">
+        {menuItems && (
+          <div className="right">
+            <div className="menu">
+              <MenuItems
+                overItem={overItem}
+                onmouseout={(str) => onmouseout(str)}
+                onmouseover={(str) => onmouseover(str)}
+                selected={actcategory}
+                datalengths={datalengths}
+                tabledata={data}
+                treedata={treedata}
+                onClick={(str) => {
+                  changeCategory(str);
                 }}
-                data={filterData(query)}
-                columns={columns}
-                pageSize={pageSize}
-              />
+              />{" "}
             </div>
-          }
-        />
+          </div>
+        )}
+        <Routes>
+          {/* switch displays only one component that matches */}
 
-        <Route
-          path="search"
-          element={
-            <div className="searchbox">
-              <SearchBox onChange={onChange} />
-              <div className="table">
+          <Route
+            path="/:item"
+            element={
+              <div className="left">
                 <Table
                   selectRecord={(rec) => {
                     setTableflag(0);
@@ -160,47 +142,69 @@ const Home = () => {
                   pageSize={pageSize}
                 />
               </div>
-            </div>
-          }
-        />
-        <Route
-          path="record/:index"
-          element={
-            <div className="record">
-              <Rec
-                update={(index, record) => {
-                  update(index, record as DataTable);
-                }}
-                columns={columns}
-                record={selectedRecord}
-                categoryurl={categoryurl}
-              />
-            </div>
-          }
-        />
+            }
+          />
 
-        <Route
-          path="settings/*"
-          element={
-            <div>
-              <Settings
-                pageSize={pageSize}
-                data={data}
-                columns={columns}
-                loadDatabase={loadDatabase}
-                treedata={treedata}
-                el={el}
-                idroot={idroot}
-                handleDragStart={handleDragStart}
-                enableDropping={enableDropping}
-                handleDrop={handleDrop}
-                preview={() => preview()}
-                changeSize={(e) => changeSize(parseInt(e.currentTarget.value))}
-              />
-            </div>
-          }
-        />
-      </Routes>
+          <Route
+            path="search"
+            element={
+              <div className="searchbox">
+                <SearchBox onChange={onChange} />
+                <div className="table">
+                  <Table
+                    selectRecord={(rec) => {
+                      setTableflag(0);
+                      selectRecord(rec);
+                    }}
+                    data={filterData(query)}
+                    columns={columns}
+                    pageSize={pageSize}
+                  />
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="record/:index"
+            element={
+              <div className="record">
+                <Rec
+                  update={(index, record) => {
+                    update(index, record as DataTable);
+                  }}
+                  columns={columns}
+                  record={selectedRecord}
+                  categoryurl={categoryurl}
+                />
+              </div>
+            }
+          />
+
+          <Route
+            path="settings/*"
+            element={
+              <div>
+                <Settings
+                  pageSize={pageSize}
+                  data={data}
+                  columns={columns}
+                  loadDatabase={loadDatabase}
+                  treedata={treedata}
+                  el={el}
+                  idroot={idroot}
+                  handleDragStart={handleDragStart}
+                  enableDropping={enableDropping}
+                  handleDrop={handleDrop}
+                  preview={() => preview()}
+                  changeSize={(e) =>
+                    changeSize(parseInt(e.currentTarget.value))
+                  }
+                />
+              </div>
+            }
+          />
+        </Routes>
+      </div>
     </>
   );
 };

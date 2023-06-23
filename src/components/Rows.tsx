@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useBuildRows } from "../hooks/useBuildRows";
 import { Column, DataTable, Record } from "./Interface";
 import { useNavigate } from "react-router-dom";
-
+import "../scss/Row.scss";
 interface IProps {
   data?: DataTable[];
   columns?: Column[];
@@ -23,6 +23,7 @@ const Rows = ({ data, columns, selectRecord }: IProps) => {
         rows.map((row, i) => {
           return (
             <tr
+              className="row"
               key={i}
               onClick={() => {
                 navigate("/record/" + row[1]);
@@ -32,7 +33,7 @@ const Rows = ({ data, columns, selectRecord }: IProps) => {
               {row.map((t, j) => {
                 return (
                   <th key={j}>
-                    <div>{t.toString()}</div>
+                    <div className="string">{t.toString()}</div>
                   </th>
                 );
               })}
