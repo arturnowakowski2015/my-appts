@@ -1,0 +1,20 @@
+.item {
+  background-color: antiquewhite;
+  width: 100%;
+  transition: background-color 0.5s;
+}
+span {
+  height: 20px;
+  text-align: right;
+  padding-left: 50px;
+}
+.selected {
+  background-color: blue;
+  width: 100%;
+  transition: background-color 0.5s;
+}
+.over {
+  background-color: rgb(30, 222, 43);
+  width: 100%;
+  transition: background-color 0.5s;
+}

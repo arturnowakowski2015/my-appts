@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import { useSort } from "../hooks/useSort";
 import { DataTable, Column, Record } from "./Interface";
 import { useBuildChevron } from "../hooks/useBuildChevron";
-
 import ColumnHeaderButton from "./ColumnHeaderButton";
 import Pagination from "./Pagination";
 import Rows from "./Rows";

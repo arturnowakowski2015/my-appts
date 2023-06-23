@@ -1,11 +1,11 @@
 import { Route, useNavigate, Routes } from "react-router-dom";
-import TreeSettings, { IMenuItems } from "../../components/TreeSettings";
-import { DataTable, Column } from "../../components/Interface";
-import { Element } from "./useTreeSettings";
-import PossibleLabel from "../../components/PossibleLabel";
-import { useTable } from "../../hooks/useTableView";
+import TreeSettings, { IMenuItems } from "../components/TreeSettings";
+import { DataTable, Column } from "../components/Interface";
+import { Element } from "../hooks/useTreeSettings";
+import PossibleLabel from "../components/PossibleLabel";
+import { useTable } from "../hooks/useTableView";
 
-import Table from "../../components/Table";
+import Table from "../components/Table";
 import "./TreeSettings.scss";
 interface IProps {
   pageSize: number;
@@ -109,7 +109,7 @@ const Settings = ({
                 handleDragStart={handleDragStart}
                 enableDropping={enableDropping}
                 handleDrop={handleDrop}
-              />
+              />{" "}
             </div>
           </>
         }

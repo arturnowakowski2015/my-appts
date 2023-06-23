@@ -28,7 +28,6 @@ const useTable = (actualcategory: string) => {
     }
   };
   const update = (url: string, rec: DataTable) => {
-    alert(rec[columns[1].col.title]);
     fetch(
       "https://jsonplaceholder.typicode.com/" +
         url +
@@ -55,7 +54,7 @@ const useTable = (actualcategory: string) => {
           data[actualcategory].splice(1, Number(columns[1].col.title), json);
         setData({ ...data });
         setTableflag(1);
-        navigate("/");
+        navigate("/" + actualcategory);
       });
   };
   const loadDatabase = async (idurl: number) => {

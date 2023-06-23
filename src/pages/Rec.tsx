@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Record, DataTable, Column } from "./Interface";
+import { Record, DataTable, Column } from "../components/Interface";
 
 import { useRec } from "../hooks/useRec";
 interface IProps {
@@ -44,7 +44,6 @@ const Rec = ({ record, categoryurl, columns, update }: IProps) => {
       />
       <button
         onClick={() => {
-          //  alert(JSON.stringify(location));
           update(categoryurl, data);
         }}
       >
