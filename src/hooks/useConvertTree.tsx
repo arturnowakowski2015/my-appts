@@ -1,5 +1,5 @@
-import { treeItems } from "../../components/Interface";
-import { IMenuItems } from "../../components/TreeSettings";
+import { treeItems } from "../components/Interface";
+import { IMenuItems } from "../components/TreeSettings";
 const useConvertTree = () => {
   let id = 0;
   let i = 0;
@@ -14,14 +14,16 @@ const useConvertTree = () => {
 
   const treetoarr = (tree: treeItems[], pid: number[]) => {
     tree &&
-      tree.map((t) => {
+      tree.map((t, j) => {
         flattenarr.push({
           name: t.name,
           id: ++id,
           pid: pid[i],
           level: level,
+          nextlevel: 0,
         });
         if (t.children) {
+          flattenarr[flattenarr.length - 1].nextlevel = 1;
           level++;
           pid.push(id);
           ++i;

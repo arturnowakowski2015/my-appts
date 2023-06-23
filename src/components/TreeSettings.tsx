@@ -6,6 +6,7 @@ export interface IMenuItems {
   level: number;
   id: number;
   pid: number;
+  nextlevel: number;
   children?: IMenuItems[];
 }
 interface IProps {
@@ -39,6 +40,7 @@ const TreeSettings = ({
               pid={t.pid}
               level={t.level * 10}
               title={t.name}
+              nextlevel={t.nextlevel}
               handleDragStart={handleDragStart}
               handleDrop={handleDrop}
               enableDropping={enableDropping}

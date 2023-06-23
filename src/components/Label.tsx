@@ -1,8 +1,10 @@
 import "./Label.css";
+import { useEffect, useState } from "react";
 interface ILabel {
   title: string;
   level: number;
   pid: number;
+  nextlevel: number;
   handleDragStart: (
     event: React.DragEvent<HTMLDivElement>,
     name: string
@@ -18,6 +20,7 @@ const Label = ({
   pid,
   title,
   level,
+  nextlevel,
   handleDragStart,
   handleDrop,
   enableDropping,
@@ -36,7 +39,13 @@ const Label = ({
       }}
       onDragOver={(event) => enableDropping(event, title)}
     >
-      <p className={"item p" + (isNaN(pid) ? -1 : pid) + "/"}>{title}</p>
+      <div
+        className={
+          "item p" + (isNaN(pid) ? -1 : pid) + "/" + " l" + nextlevel + "?"
+        }
+      >
+        {title}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IMenuItems } from "../../components/TreeSettings";
+import { IMenuItems } from "../components/TreeSettings";
 
 export interface Element {
   old?: IMenuItems;
@@ -23,6 +23,14 @@ const useTreeSettings = () => {
   const findinarray = (array: IMenuItems[], str: string | undefined) => {
     return array.findIndex((t) => {
       return t.name === str && t;
+    });
+  };
+  const findchildreninarray = (
+    array: IMenuItems[],
+    str: number | undefined
+  ) => {
+    return array.findIndex((t) => {
+      return t.pid === str && t;
     });
   };
   const handleDragStart = (
@@ -79,6 +87,7 @@ const useTreeSettings = () => {
     // 1 setting pid and id
 
     const push = (section: HTMLElement, i: number) => {
+      console.log(section);
       array.push({
         name: cutText(section.innerHTML),
         level:
@@ -95,6 +104,7 @@ const useTreeSettings = () => {
             section.innerHTML.indexOf("/")
           )
         ),
+        nextlevel: 0,
       });
     };
     for (let i = 0; i < sections.length; i++) {
@@ -131,7 +141,7 @@ const useTreeSettings = () => {
       }
     array.splice(old, 1);
     array.map((t, i) => {
-      t.id = i;
+      t.id = i + 1;
       return t;
     });
 
@@ -160,8 +170,10 @@ const useTreeSettings = () => {
                 --yy;
               }
             }
+
             reindex(array, ++ii, pid, j);
           }
+
       return array;
     };
     setEl((el) => ({
@@ -169,7 +181,15 @@ const useTreeSettings = () => {
       act: undefined,
     }));
     setIdroot("");
-    setTreedata(reindex(array, 0, pidarr, 0));
+    array = reindex(array, 0, pidarr, 0);
+    array.map((t, i) => {
+      array.map((tt) => {
+        if (tt.pid === t.id) {
+          t.nextlevel = 1;
+        }
+      });
+    });
+    setTreedata(array);
   };
 
   return {

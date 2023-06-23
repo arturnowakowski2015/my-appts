@@ -25,7 +25,7 @@ const Rows = ({ data, columns, selectRecord }: IProps) => {
             <tr
               key={i}
               onClick={() => {
-                navigate("record");
+                navigate("/record/" + row[1]);
                 selectRecord(row);
               }}
             >
