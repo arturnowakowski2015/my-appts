@@ -5,6 +5,7 @@ import { useBuildChevron } from "../hooks/useBuildChevron";
 import ColumnHeaderButton from "./ColumnHeaderButton";
 import Pagination from "./Pagination";
 import Rows from "./Rows";
+import "../scss/Table.scss";
 //import Pagination from "./Pagination";
 interface IProps {
   data?: DataTable[];
@@ -39,7 +40,7 @@ export default function Table({
     <>
       {" "}
       {currentTableData && currentTableData.length > 0 ? (
-        <table>
+        <table className="table">
           <thead>
             <tr>
               {columns &&

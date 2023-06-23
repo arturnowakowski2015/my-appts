@@ -3,19 +3,28 @@ import { IMenuItems } from "./TreeSettings";
 import { useMenuItems } from "../hooks/useMenuItems";
 import "../scss/MenuItems.scss";
 
+import { useThemectx } from "./MyGlobalContext";
+
 interface IProps {
   datalengths: DataLengths;
   treedata: IMenuItems[];
   tabledata: DataTable[];
   pid: number;
+  overItem: string;
   selected: string;
+  onmouseout: (str: string) => void;
+  onmouseover: (str: string) => void;
   onClick: (title: string) => void;
 }
+
 const TreeNode = ({
   treedata,
   tabledata,
   pid,
   selected,
+  overItem,
+  onmouseout,
+  onmouseover,
   onClick,
   datalengths,
 }: IProps) => {
@@ -24,6 +33,7 @@ const TreeNode = ({
     treedata
   );
 
+  const { sets } = useThemectx();
   return (
     <>
       {treedata.map((t, i) => {
@@ -42,6 +52,7 @@ const TreeNode = ({
               >
                 {flag[i] === false && t.nextlevel === 1 && (
                   <div
+                    className="plus"
                     onClick={() => {
                       set(t.pid, true);
                     }}
@@ -52,6 +63,7 @@ const TreeNode = ({
                 )}
                 {flag[i] && (
                   <div
+                    className="minus"
                     onClick={() => {
                       set(t.pid, false);
                     }}
@@ -60,8 +72,16 @@ const TreeNode = ({
                   </div>
                 )}
                 <div
-                  className={t.name === selected ? "selected" : "item"}
+                  className={
+                    t.name === selected
+                      ? "selected-" + sets[1]
+                      : t.name === overItem
+                      ? "over-" + sets[1]
+                      : "item-" + sets[1]
+                  }
                   onClick={() => onClick(t.name)}
+                  onMouseOver={() => onmouseover(t.name)}
+                  onMouseOut={() => onmouseout(t.name)}
                 >
                   {t.name}
 
@@ -74,6 +94,9 @@ const TreeNode = ({
 
               {flag[i] && (
                 <TreeNode
+                  overItem={overItem}
+                  onmouseover={onmouseover}
+                  onmouseout={onmouseout}
                   selected={selected}
                   treedata={treedata}
                   tabledata={tabledata}

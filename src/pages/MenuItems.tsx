@@ -43,6 +43,7 @@ const MenuItems = ({
             <div style={{ display: "flex", flexDirection: "row" }}>
               {flag[i] === false && t.nextlevel === 1 && (
                 <div
+                  className="plus"
                   onClick={() => {
                     set(i, true);
                   }}
@@ -53,6 +54,7 @@ const MenuItems = ({
               )}
               {flag[i] && (
                 <div
+                  className="minus"
                   onClick={() => {
                     set(i, false);
                   }}
@@ -63,10 +65,10 @@ const MenuItems = ({
               <div
                 className={
                   t.name === selected
-                    ? "selected"
+                    ? "selected-" + set
                     : t.name === overItem
-                    ? "over"
-                    : "item"
+                    ? "over-" + set
+                    : "item-" + set
                 }
                 onClick={() => onClick(t.name)}
                 onMouseOver={() => onmouseover(t.name)}
@@ -78,6 +80,9 @@ const MenuItems = ({
             </div>
             {flag[i] && (
               <TreeNode
+                overItem={overItem}
+                onmouseout={(str) => onmouseout(str)}
+                onmouseover={(str) => onmouseover(str)}
                 treedata={treedata}
                 selected={selected}
                 tabledata={tabledata}
