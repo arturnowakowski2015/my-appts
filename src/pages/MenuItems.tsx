@@ -38,7 +38,6 @@ const MenuItems = ({
   };
   const ref = useRef<Function>();
   const sFlag = () => {
-    setFlag([]);
     console.log(recquantity);
   };
   ref.current = sFlag;

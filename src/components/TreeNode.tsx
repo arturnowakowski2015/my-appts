@@ -36,9 +36,7 @@ const TreeNode = ({
   console.log(itemsonlevel);
   const fl = useRef<Function>();
 
-  const sFlag = () => {
-    setFlag([]);
-  };
+  const sFlag = () => {};
   fl.current = sFlag;
   useEffect(() => {
     if (fl.current) fl.current();
