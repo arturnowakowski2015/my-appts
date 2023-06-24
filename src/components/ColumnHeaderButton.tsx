@@ -22,7 +22,12 @@ export default function ColumnHeaderButton({
     );
   };
   return (
-    <div className={className + " columns"}>
+    <div
+      className={className + " columns"}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+      onClick={onClick}
+    >
       {" "}
       {chevron !== undefined && (
         <div
@@ -33,9 +38,7 @@ export default function ColumnHeaderButton({
           ^
         </div>
       )}
-      <div onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick}>
-        {title}
-      </div>
+      <div>{title}</div>
     </div>
   );
 }

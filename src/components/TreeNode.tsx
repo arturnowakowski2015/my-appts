@@ -1,10 +1,9 @@
 import { DataTable, DataLengths } from "./Interface";
 import { IMenuItems } from "./TreeSettings";
 import { useMenuItems } from "../hooks/useMenuItems";
+import { useGlobalContext } from "../ctx/MyGlobalContext";
+
 import "../scss/MenuItems.scss";
-
-import { useThemectx } from "./MyGlobalContext";
-
 interface IProps {
   datalengths: DataLengths;
   treedata: IMenuItems[];
@@ -32,11 +31,10 @@ const TreeNode = ({
     pid,
     treedata
   );
-
-  const { sets } = useThemectx();
+  const { sets, i } = useGlobalContext();
   return (
     <>
-      {treedata.map((t, i) => {
+      {treedata.map((t, ii) => {
         return (
           t.pid === pid &&
           t.pid > 0 && (
@@ -50,7 +48,7 @@ const TreeNode = ({
                 }}
                 key={t.id}
               >
-                {flag[i] === false && t.nextlevel === 1 && (
+                {flag[ii] === false && t.nextlevel === 1 && (
                   <div
                     className="plus"
                     onClick={() => {
@@ -61,7 +59,7 @@ const TreeNode = ({
                     +
                   </div>
                 )}
-                {flag[i] && (
+                {flag[ii] && (
                   <div
                     className="minus"
                     onClick={() => {
@@ -74,10 +72,10 @@ const TreeNode = ({
                 <div
                   className={
                     t.name === selected
-                      ? "selected-" + sets[1]
+                      ? "selected-" + sets[i]
                       : t.name === overItem
-                      ? "over-" + sets[1]
-                      : "item-" + sets[1]
+                      ? "over-" + sets[i]
+                      : "item-" + sets[i]
                   }
                   onClick={() => onClick(t.name)}
                   onMouseOver={() => onmouseover(t.name)}
@@ -85,14 +83,11 @@ const TreeNode = ({
                 >
                   {t.name}
 
-                  <span>
-                    ,,,
-                    {recquantity(t.name, datalengths)}
-                  </span>
+                  <span>{recquantity(t.name, datalengths)}</span>
                 </div>
               </div>
 
-              {flag[i] && (
+              {flag[ii] && (
                 <TreeNode
                   overItem={overItem}
                   onmouseover={onmouseover}

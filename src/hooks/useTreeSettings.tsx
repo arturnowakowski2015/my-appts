@@ -116,6 +116,7 @@ const useTreeSettings = () => {
     if (old > act) {
       array.map((t, i) => {
         if (i > old && t.level >= array[old].level) t.level = t.level - 1;
+
         return t;
       });
     } else

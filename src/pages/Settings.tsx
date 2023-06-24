@@ -54,9 +54,13 @@ const Settings = ({
       <Route
         path="tablesettings"
         element={
-          <>
-            <div onClick={preview}>preview</div>
-            <div onClick={() => navigate("treesettings")}>tree settings</div>
+          <div className="settings1">
+            <div className="div" onClick={preview}>
+              preview
+            </div>
+            <div className="div" onClick={() => navigate("treesettings")}>
+              tree settings
+            </div>
             <label>change database</label>
             <select onChange={change}>
               <option value="0">comments</option>
@@ -76,15 +80,20 @@ const Settings = ({
               columns={columns}
               pageSize={pageSize}
             />
-          </>
+          </div>
         }
       />
       <Route
         path="treesettings"
         element={
-          <>
-            <div onClick={preview}>preview</div>
-            <div onClick={() => navigate("tablesettings")}> table settings</div>
+          <div className="settings1">
+            <div className="div" onClick={preview}>
+              preview
+            </div>
+            <div className="div" onClick={() => navigate("tablesettings")}>
+              {" "}
+              table settings
+            </div>
             <p
               id="ROOT"
               className="root"
@@ -111,7 +120,8 @@ const Settings = ({
                 handleDrop={handleDrop}
               />{" "}
             </div>
-          </>
+            <div className="label1">1. drag'n'drop tree menu items</div>
+          </div>
         }
       />
     </Routes>

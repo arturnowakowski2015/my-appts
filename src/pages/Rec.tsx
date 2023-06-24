@@ -12,6 +12,7 @@ const Rec = ({ record, categoryurl, columns, update }: IProps) => {
   const [data, setData] = useRec(record as Record[], columns);
   return (
     <>
+      <div>{data && Object.entries(data) && Object.keys(data)[2]}</div>
       <input
         type="text"
         value={(data && data[columns[2].col.title]) || ""}
@@ -21,7 +22,8 @@ const Rec = ({ record, categoryurl, columns, update }: IProps) => {
             [columns[2].col.title]: e.currentTarget.value,
           })
         }
-      />
+      />{" "}
+      <div>{data && Object.entries(data) && Object.keys(data)[3]}</div>
       <input
         type="text"
         value={(data && data[columns[3].col.title]) || ""}
@@ -32,6 +34,7 @@ const Rec = ({ record, categoryurl, columns, update }: IProps) => {
           })
         }
       />{" "}
+      <div>{data && Object.entries(data) && Object.keys(data)[4]}</div>
       <input
         type="text"
         value={(data && data[columns[4].col.title]) || ""}
@@ -42,6 +45,9 @@ const Rec = ({ record, categoryurl, columns, update }: IProps) => {
           })
         }
       />
+      <br />
+      <br />
+      <br />
       <button
         onClick={() => {
           update(categoryurl, data);

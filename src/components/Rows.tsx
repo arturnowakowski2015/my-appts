@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useBuildRows } from "../hooks/useBuildRows";
 import { Column, DataTable, Record } from "./Interface";
-import { useNavigate } from "react-router-dom";
-import "../scss/Row.scss";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import { useGlobalContext } from "../ctx/MyGlobalContext";
 interface IProps {
   data?: DataTable[];
   columns?: Column[];
@@ -11,23 +12,27 @@ interface IProps {
 const Rows = ({ data, columns, selectRecord }: IProps) => {
   const [rows, build] = useBuildRows();
   const ref = useRef<Function>();
+  const location = useLocation();
   ref.current = build;
   useEffect(() => {
     if (ref.current) ref.current(data, columns);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
   const navigate = useNavigate();
+  const { sets, i } = useGlobalContext();
   return (
     <>
       {rows &&
-        rows.map((row, i) => {
+        rows.map((row, ii) => {
           return (
             <tr
-              className="row"
-              key={i}
+              className={"row-" + sets[i] + " table-row"}
+              key={ii}
               onClick={() => {
-                navigate("/record/" + row[1]);
-                selectRecord(row);
+                if (location.pathname.split("/")[1] !== "settings") {
+                  navigate("/record/" + row[1]);
+                  selectRecord(row);
+                }
               }}
             >
               {row.map((t, j) => {

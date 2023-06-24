@@ -1,5 +1,7 @@
 import "./Label.css";
 import { useEffect, useState } from "react";
+import { useGlobalContext } from "../ctx/MyGlobalContext";
+
 interface ILabel {
   title: string;
   level: number;
@@ -25,6 +27,7 @@ const Label = ({
   handleDrop,
   enableDropping,
 }: ILabel) => {
+  const { sets, i } = useGlobalContext();
   return (
     <div
       style={{ marginLeft: level + "px" }}
@@ -41,7 +44,14 @@ const Label = ({
     >
       <div
         className={
-          "item p" + (isNaN(pid) ? -1 : pid) + "/" + " l" + nextlevel + "?"
+          "item-" +
+          sets[i] +
+          " p" +
+          (isNaN(pid) ? -1 : pid) +
+          "/" +
+          " l" +
+          nextlevel +
+          "?"
         }
       >
         {title}

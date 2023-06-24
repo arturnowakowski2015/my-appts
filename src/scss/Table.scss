@@ -1,14 +1,19 @@
+@use "set";
+@use "sass:map";
+
 table {
   border: black solid 1px;
   .columns {
     margin: 0 auto;
   }
-  tr:nth-child(odd) {
-    background: #ccc;
+
+  @each $v in 1, 2, 3 {
+    .row-#{$v}:nth-child(odd) {
+      background: nth(map.get(set.$colors, "selected-#{$v}"), 4);
+      transition: background-color 0.5s;
+    }
   }
-  tr:nth-child(even) {
-    background: #a05757;
-  }
+
   .string {
     width: 100px;
     overflow: hidden;
@@ -20,12 +25,12 @@ table {
     cursor: pointer;
     display: flex;
     flex-direction: row;
+    padding-left: 30%;
   }
-  .table-row:hover td {
-    cursor: pointer;
-    background: green;
 
-    color: white;
+  tr:hover th {
+    cursor: pointer;
+    background: rgb(235, 226, 226);
   }
   .norecords {
     position: absolute;

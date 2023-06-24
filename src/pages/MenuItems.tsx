@@ -2,6 +2,7 @@ import { IMenuItems } from "../components/TreeSettings";
 import { DataTable, DataLengths } from "../components/Interface";
 import TreeNode from "../components/TreeNode";
 import { useMenuItems } from "../hooks/useMenuItems";
+import { useGlobalContext } from "../ctx/MyGlobalContext";
 import { useState } from "react";
 import "../scss/MenuItems.scss";
 interface IProps {
@@ -28,7 +29,7 @@ const MenuItems = ({
     0,
     treedata
   );
-
+  const { sets, i } = useGlobalContext();
   const ret = (str: string) => {
     for (const [key, value] of Object.entries(datalengths)) {
       if (key === str) return value;
@@ -37,11 +38,15 @@ const MenuItems = ({
 
   return (
     <>
-      {itemsonlevel.map((t, i) => {
+      {itemsonlevel.map((t, ii) => {
         return (
-          <div style={{ marginLeft: t.level * 10 + "px" }} key={t.id}>
+          <div
+            className="node"
+            style={{ marginLeft: t.level * 10 + "px" }}
+            key={t.id}
+          >
             <div style={{ display: "flex", flexDirection: "row" }}>
-              {flag[i] === false && t.nextlevel === 1 && (
+              {flag[ii] === false && t.nextlevel === 1 && (
                 <div
                   className="plus"
                   onClick={() => {
@@ -52,7 +57,7 @@ const MenuItems = ({
                   +
                 </div>
               )}
-              {flag[i] && (
+              {flag[ii] && (
                 <div
                   className="minus"
                   onClick={() => {
@@ -65,10 +70,10 @@ const MenuItems = ({
               <div
                 className={
                   t.name === selected
-                    ? "selected-" + set
+                    ? "selected-" + sets[i]
                     : t.name === overItem
-                    ? "over-" + set
-                    : "item-" + set
+                    ? "over-" + sets[i]
+                    : "item-" + sets[i]
                 }
                 onClick={() => onClick(t.name)}
                 onMouseOver={() => onmouseover(t.name)}

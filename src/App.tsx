@@ -1,14 +1,15 @@
 import Home from "./pages/Home";
 import { useState, createContext, useContext } from "react";
-import { MyGlobalContext } from "./components/MyGlobalContext";
+import { MyGlobalContext } from "./ctx/MyGlobalContext";
 import "./App.css";
 
 function App() {
   const [sets, setSets] = useState<string[]>(["1", "2", "3"]);
+  const [i, setI] = useState(1);
   return (
     <>
       {" "}
-      <MyGlobalContext.Provider value={{ sets, setSets }}>
+      <MyGlobalContext.Provider value={{ sets, setSets, i, setI }}>
         <Home />{" "}
       </MyGlobalContext.Provider>
     </>

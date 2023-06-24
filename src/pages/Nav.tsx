@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+import { useGlobalContext } from "../ctx/MyGlobalContext";
+import "../scss/Nav.scss";
 export interface IProps {
   one: (str: string) => void;
 }
 const Nav = ({ one }: IProps) => {
   const navigate = useNavigate();
-  const [set, setSet] = useState<string[]>(["blue", "brown", "green", "red"]);
-  const [i, setI] = useState(1);
-
+  const [set, setSet] = useState<string[]>(["Almond", "Cyan", "Aqua"]);
+  const { sets, setSets, i, setI } = useGlobalContext();
   return (
-    <>
+    <div className="nav">
       <div
         onClick={() => {
           navigate("/search");
@@ -24,21 +26,24 @@ const Nav = ({ one }: IProps) => {
           one("settings");
         }}
       >
-        settingsaaa
+        settings
       </div>
-      <div className={"dropdown-" + set[i]}>
+      <div className="dropdown">
         <button className="dropbtn">Dropdown</button>
         <div className="dropdown-content">
           {set.map((t, j) => {
             return (
-              <a href="#" onClick={() => setI(j)}>
-                {t}
-              </a>
+              <div className="container">
+                <div className={"colorprobe-" + (j + 1)}></div>
+                <div className="colorid" onClick={() => setI(j)}>
+                  {t}/{j}
+                </div>
+              </div>
             );
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Nav;
