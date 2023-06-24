@@ -37,7 +37,7 @@ const TreeNode = ({
   const fl = useRef<Function>();
 
   const sFlag = () => {
-    setFlag([true]);
+    setFlag([]);
   };
   fl.current = sFlag;
   useEffect(() => {

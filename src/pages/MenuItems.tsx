@@ -3,7 +3,7 @@ import { DataTable, DataLengths } from "../components/Interface";
 import TreeNode from "../components/TreeNode";
 import { useMenuItems } from "../hooks/useMenuItems";
 import { useGlobalContext } from "../ctx/MyGlobalContext";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import "../scss/MenuItems.scss";
 interface IProps {
@@ -36,9 +36,14 @@ const MenuItems = ({
       if (key === str) return value;
     }
   };
-  useEffect(() => {
-    setFlag([true]);
+  const ref = useRef<Function>();
+  const sFlag = () => {
+    setFlag([]);
     console.log(recquantity);
+  };
+  ref.current = sFlag;
+  useEffect(() => {
+    if (ref.current) ref.current();
   }, []);
   return (
     <>
