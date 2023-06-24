@@ -5,9 +5,10 @@ interface IProps {
   record?: Record[];
   categoryurl: string;
   columns: Column[];
+  deleteRec: (cat: string, str: DataTable) => void;
   update: (url: string, record?: DataTable) => void;
 }
-const Rec = ({ record, categoryurl, columns, update }: IProps) => {
+const Rec = ({ record, categoryurl, columns, deleteRec, update }: IProps) => {
   const [data, setData] = useRec(record as Record[], columns);
   return (
     <>
@@ -53,6 +54,13 @@ const Rec = ({ record, categoryurl, columns, update }: IProps) => {
         }}
       >
         update
+      </button>
+      <button
+        onClick={() => {
+          deleteRec(categoryurl, data);
+        }}
+      >
+        delete
       </button>
     </>
   );

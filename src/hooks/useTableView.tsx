@@ -16,7 +16,7 @@ const useTable = (actualcategory: string) => {
   const navigate = useNavigate();
   const [tableflag, setTableflag] = useState(1);
   const [selectedRecord, setSelectedRecord] = useState<Record[]>();
-  const [data, setData] = useState<Data>();
+  const [data, setData] = useState<Data | undefined>();
   const [categoryurl, setCategoryurl] = useState("");
   let columns: Column[] = [];
   const [datalengths, setDatalengths] = useState<DataLengths>({});
@@ -51,11 +51,17 @@ const useTable = (actualcategory: string) => {
       .then((response) => response.json())
       .then((json) => {
         if (data)
-          data[actualcategory].splice(1, Number(columns[1].col.title), json);
+          data[actualcategory].splice(Number(columns[1].col.title), 1, json);
         setData({ ...data });
         setTableflag(1);
         navigate("/" + actualcategory);
       });
+  };
+  const deleteRec = (str: string, rec: DataTable) => {
+    data && data[actualcategory].splice(1, 1);
+    let arr: DataTable[] | undefined = data && data[actualcategory];
+    setData({ ...data, actualcategory: arr as DataTable[] });
+    navigate("/" + actualcategory);
   };
   const loadDatabase = async (idurl: number) => {
     const response = await fetch(urls[idurl]);
@@ -99,6 +105,7 @@ const useTable = (actualcategory: string) => {
     selectedRecord,
     categoryurl,
     tableflag,
+    deleteRec,
     loadDatabase,
     filterData,
     selectRecord,

@@ -39,6 +39,7 @@ const Home = () => {
     selectedRecord,
     categoryurl,
     tableflag,
+    deleteRec,
     loadDatabase,
     filterData,
     selectRecord,
@@ -134,12 +135,13 @@ const Home = () => {
             path="/:item"
             element={
               <div className="left">
+                {query}
                 <Table
                   selectRecord={(rec) => {
                     setTableflag(0);
                     selectRecord(rec);
                   }}
-                  data={filterData(query)}
+                  data={query ? filterData(query) : data}
                   columns={columns}
                   pageSize={pageSize}
                 />
@@ -158,7 +160,7 @@ const Home = () => {
                       setTableflag(0);
                       selectRecord(rec);
                     }}
-                    data={filterData(query)}
+                    data={query ? filterData(query) : data}
                     columns={columns}
                     pageSize={pageSize}
                   />
@@ -174,6 +176,7 @@ const Home = () => {
                   update={(index, record) => {
                     update(index, record as DataTable);
                   }}
+                  deleteRec={(str, rec) => deleteRec(str, rec as DataTable)}
                   columns={columns}
                   record={selectedRecord}
                   categoryurl={categoryurl}
