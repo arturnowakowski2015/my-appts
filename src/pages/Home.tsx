@@ -48,6 +48,7 @@ const Home = () => {
   const [pageSize, setPageSize] = useState(5);
   const changeSize = (i: number) => {
     setPageSize(i);
+    console.log(tableflag);
   };
   const preview = () => {
     navigate("/" + actcategory);
@@ -86,6 +87,7 @@ const Home = () => {
     flattenarr.map((t) => {
       if (t.name === actcategory) selectedMenu.push("selected");
       else selectedMenu.push("item");
+      return t;
     });
     setSelectedMenu(selectedMenu);
     navigate("new");

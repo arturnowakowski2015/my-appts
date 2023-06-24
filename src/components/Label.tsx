@@ -1,5 +1,4 @@
 import "./Label.css";
-import { useEffect, useState } from "react";
 import { useGlobalContext } from "../ctx/MyGlobalContext";
 
 interface ILabel {

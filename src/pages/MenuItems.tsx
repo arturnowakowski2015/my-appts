@@ -3,7 +3,8 @@ import { DataTable, DataLengths } from "../components/Interface";
 import TreeNode from "../components/TreeNode";
 import { useMenuItems } from "../hooks/useMenuItems";
 import { useGlobalContext } from "../ctx/MyGlobalContext";
-import { useState } from "react";
+import { useEffect } from "react";
+
 import "../scss/MenuItems.scss";
 interface IProps {
   datalengths: DataLengths;
@@ -35,7 +36,10 @@ const MenuItems = ({
       if (key === str) return value;
     }
   };
-
+  useEffect(() => {
+    setFlag([true]);
+    console.log(recquantity);
+  }, []);
   return (
     <>
       {itemsonlevel.map((t, ii) => {

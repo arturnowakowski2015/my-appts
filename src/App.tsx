@@ -1,5 +1,5 @@
 import Home from "./pages/Home";
-import { useState, createContext, useContext } from "react";
+import { useState } from "react";
 import { MyGlobalContext } from "./ctx/MyGlobalContext";
 import "./App.css";
 

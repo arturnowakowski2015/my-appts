@@ -25,14 +25,7 @@ const useTreeSettings = () => {
       return t.name === str && t;
     });
   };
-  const findchildreninarray = (
-    array: IMenuItems[],
-    str: number | undefined
-  ) => {
-    return array.findIndex((t) => {
-      return t.pid === str && t;
-    });
-  };
+
   const handleDragStart = (
     event: React.DragEvent<HTMLDivElement>,
     name: string
@@ -188,7 +181,9 @@ const useTreeSettings = () => {
         if (tt.pid === t.id) {
           t.nextlevel = 1;
         }
+        return tt;
       });
+      return t;
     });
     setTreedata(array);
   };

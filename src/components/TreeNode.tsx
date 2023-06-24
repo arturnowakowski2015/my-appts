@@ -2,6 +2,7 @@ import { DataTable, DataLengths } from "./Interface";
 import { IMenuItems } from "./TreeSettings";
 import { useMenuItems } from "../hooks/useMenuItems";
 import { useGlobalContext } from "../ctx/MyGlobalContext";
+import { useEffect, useRef } from "react";
 
 import "../scss/MenuItems.scss";
 interface IProps {
@@ -32,6 +33,16 @@ const TreeNode = ({
     treedata
   );
   const { sets, i } = useGlobalContext();
+  console.log(itemsonlevel);
+  const fl = useRef<Function>();
+
+  const sFlag = () => {
+    setFlag([true]);
+  };
+  fl.current = sFlag;
+  useEffect(() => {
+    if (fl.current) fl.current();
+  }, []);
   return (
     <>
       {treedata.map((t, ii) => {

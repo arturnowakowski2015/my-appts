@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 import { useGlobalContext } from "../ctx/MyGlobalContext";
 import "../scss/Nav.scss";
@@ -8,8 +7,8 @@ export interface IProps {
 }
 const Nav = ({ one }: IProps) => {
   const navigate = useNavigate();
-  const [set, setSet] = useState<string[]>(["Almond", "Cyan", "Aqua"]);
-  const { sets, setSets, i, setI } = useGlobalContext();
+  const set: string[] = ["Almond", "Cyan", "Aqua"];
+  const { setI } = useGlobalContext();
   return (
     <div className="nav">
       <div
